@@ -1,0 +1,34 @@
+#services:
+#  axonserver:
+#    image: axoniq/axonserver:latest
+#    container_name: axonserver
+#    hostname: axonserver
+#    ports:
+#      - "8024:8024" # Dashboard & REST
+#      - "8124:8124" # gRPC (Messaging)
+#    environment:
+#      - AXONIQ_AXONSERVER_HOSTNAME=localhost
+#    volumes:
+#      - ./axonserver/data:/data
+#      - ./axonserver/events:/eventdata
+#      - ./axonserver/config:/config
+#    networks:
+#      - vitals-network
+
+#  # Adding your MySQL for a complete environment
+#  mysql-db:
+#    image: mysql:8.0
+#    container_name: vitals-mysql
+#    ports:
+#      - "3307:3306"
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=nyasha
+#      - MYSQL_DATABASE=vitals_management
+#      - MYSQL_USER=nyasha
+#      - MYSQL_PASSWORD=nyasha
+#    networks:
+#      - vitals-network
+#
+#  networks:
+#    vitals-network:
+#      driver: bridge
