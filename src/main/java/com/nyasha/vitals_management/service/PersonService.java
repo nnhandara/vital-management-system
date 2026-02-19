@@ -17,8 +17,14 @@ public class PersonService {
     private final CommandGateway commandGateway;
 
 
-    public CompletableFuture createPerson(String name, String gender, LocalDate dateOfBirth) {
-       PersonCreateCommand command = new PersonCreateCommand(name, gender, dateOfBirth);
+    public CompletableFuture createPerson(String name,
+                                          String gender,
+                                          LocalDate dateOfBirth) {
+       PersonCreateCommand command =
+               new PersonCreateCommand(
+                       name,
+                       gender,
+                       dateOfBirth);
       return commandGateway.send(command).thenApply(result -> command.getPersonId());
     }
 

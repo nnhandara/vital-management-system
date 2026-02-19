@@ -1,7 +1,5 @@
-package com.nyasha.vitals_management.entity;
+package com.nyasha.vitals_management.dto;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,14 +7,9 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 
 @Data
-@Entity( name = "vital")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Vital {
-
-    @Id
-    private String vitalId;
-
+public class VitalCreateRequest {
     private String personId;
     private String bloodPressure;
     private Integer temperature;
