@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -21,5 +22,19 @@ public class VitalCreateEvent {
     private Integer pulse;
     private Integer heartRate;
     private LocalDate date;
+    private LocalDateTime createdAt;
 
+
+    public VitalCreateEvent(String vitalId, String personId, String bloodPressure, Integer temperature, Integer oxygenSaturation, Integer respiratoryRate, Integer pulse, Integer heartRate, LocalDate date) {
+        this.vitalId = vitalId;
+        this.personId = personId;
+        this.bloodPressure = bloodPressure;
+        this.temperature = temperature;
+        this.oxygenSaturation = oxygenSaturation;
+        this.respiratoryRate = respiratoryRate;
+        this.pulse = pulse;
+        this.heartRate = heartRate;
+        this.date = date;
+        this.createdAt = LocalDateTime.now();
+    }
 }

@@ -34,10 +34,7 @@ public class VitalProjection {
         vital.setPulse(vitalCreateEvent.getPulse());
         vital.setHeartRate(vitalCreateEvent.getHeartRate());
         vital.setDate(vitalCreateEvent.getDate());
-
-////        UUID personId = UUID.fromString(vitalCreateEvent.getPersonId());
-//        Person person = getReferenceById(vitalCreateEvent.getPersonId());
-//        vital.setPerson(person);
+        vital.setCreatedAt(vitalCreateEvent.getCreatedAt());
 
         vitalRepository.save(vital);
     }
