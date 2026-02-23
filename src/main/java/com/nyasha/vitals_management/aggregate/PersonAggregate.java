@@ -7,6 +7,8 @@ import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.spring.stereotype.Aggregate;
 
+import java.util.UUID;
+
 import static org.axonframework.modelling.command.AggregateLifecycle.apply;
 
 @Aggregate
@@ -30,7 +32,7 @@ public class PersonAggregate {
 
     @EventSourcingHandler
     public void on(PersonCreateEvent event) {
-        this.personId = String.valueOf(event.getPersonId());
+        this.personId = event.getPersonId();
 
     }
 }

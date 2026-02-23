@@ -20,9 +20,9 @@ public class PersonController {
     private final PersonService personService;
 
     @PostMapping
-    public ResponseEntity<UUID> createPerson(@RequestBody PersonCreateRequest dto) {
+    public ResponseEntity<String> createPerson(@RequestBody PersonCreateRequest dto) {
         CompletableFuture personId = personService.createPerson(dto.getName(), dto.getGender(), dto.getDateOfBirth());
-        return ResponseEntity.ok((UUID) personId.join());
+        return ResponseEntity.ok((String) personId.join());
     }
 
 

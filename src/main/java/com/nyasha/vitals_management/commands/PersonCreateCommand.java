@@ -13,7 +13,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PersonCreateCommand {
     @TargetAggregateIdentifier
-    private UUID personId;
+    private String personId;
 
     private String name;
     private String gender;
@@ -21,7 +21,7 @@ public class PersonCreateCommand {
 
 
     public PersonCreateCommand(String name, String gender, LocalDate dateOfBirth) {
-        this.personId = UUID.randomUUID();
+        this.personId = UUID.randomUUID().toString();
         this.name = name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;

@@ -17,7 +17,7 @@ public class PersonProjection {
     @EventHandler
     public void onPersonProjection(PersonCreateEvent personCreateEvent) {
         Person person = new Person();
-        person.setPersonId(UUID.fromString(String.valueOf(personCreateEvent.getPersonId())));
+        person.setPersonId(personCreateEvent.getPersonId());
                 person.setName(personCreateEvent.getName());
                 person.setGender(personCreateEvent.getGender());
                 person.setDateOfBirth(personCreateEvent.getDateOfBirth());

@@ -11,14 +11,14 @@ import java.util.UUID;
 @Data
 public class PersonCreateEvent {
 
-    private UUID personId;
+    private String personId;
     private String name;
     private String gender;
     private LocalDate dateOfBirth;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public PersonCreateEvent(UUID personId, String name, String gender, LocalDate dateOfBirth) {
+    public PersonCreateEvent(String personId, String name, String gender, LocalDate dateOfBirth) {
         this.personId = personId;
         this.name = name;
         this.gender = gender;

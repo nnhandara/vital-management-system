@@ -5,12 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class VitalCreateRequest {
-    private String personId;
+    private UUID personId;
     private String bloodPressure;
     private Integer temperature;
     private Integer oxygenSaturation;
