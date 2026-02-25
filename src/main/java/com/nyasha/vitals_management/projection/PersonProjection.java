@@ -21,6 +21,8 @@ public class PersonProjection {
                 person.setName(personCreateEvent.getName());
                 person.setGender(personCreateEvent.getGender());
                 person.setDateOfBirth(personCreateEvent.getDateOfBirth());
+                person.setAddress(personCreateEvent.getAddress());
+                person.setNationality(personCreateEvent.getNationality());
                 person.setCreatedAt(personCreateEvent.getCreatedAt());
                 person.setUpdatedAt(personCreateEvent.getUpdatedAt());
                 personRepository.save(person);

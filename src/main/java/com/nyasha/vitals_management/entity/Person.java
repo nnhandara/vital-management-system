@@ -23,6 +23,8 @@ public class Person {
     private String name;
     private LocalDate dateOfBirth;
     private String gender;
+    private String address;
+    private String nationality;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

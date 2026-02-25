@@ -19,12 +19,16 @@ public class PersonService {
 
     public CompletableFuture createPerson(String name,
                                           String gender,
-                                          LocalDate dateOfBirth) {
+                                          LocalDate dateOfBirth,
+                                          String address,
+                                          String nationality) {
        PersonCreateCommand command =
                new PersonCreateCommand(
                        name,
                        gender,
-                       dateOfBirth);
+                       dateOfBirth,
+                       address,
+                       nationality);
       return commandGateway.send(command).thenApply(result -> command.getPersonId());
     }
 

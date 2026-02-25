@@ -18,13 +18,17 @@ public class PersonCreateCommand {
     private String name;
     private String gender;
     private LocalDate dateOfBirth;
+    private String address;
+    private String nationality;
 
 
-    public PersonCreateCommand(String name, String gender, LocalDate dateOfBirth) {
+    public PersonCreateCommand(String name, String gender, LocalDate dateOfBirth, String address, String nationality) {
         this.personId = UUID.randomUUID().toString();
         this.name = name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
+        this.address = address;
+        this.nationality = nationality;
     }
 
 

@@ -10,4 +10,6 @@ public class PersonCreateRequest {
     private String name;
     private String gender;
     private LocalDate dateOfBirth;
+    private String address;
+    private String nationality;
 }

@@ -26,7 +26,9 @@ public class PersonAggregate {
                 command.getPersonId(),
                 command.getName(),
                 command.getGender(),
-                command.getDateOfBirth()
+                command.getDateOfBirth(),
+                command.getAddress(),
+                command.getNationality()
         ));
     }
 
