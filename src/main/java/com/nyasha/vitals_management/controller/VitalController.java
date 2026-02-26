@@ -17,7 +17,7 @@ public class VitalController {
 
     private final VitalService vitalService;
 
-    @PostMapping()
+    @PostMapping(value = "create")
     public ResponseEntity<String> createVital(@PathVariable String personId,
                                               @RequestBody VitalCreateRequest dto){
         CompletableFuture vitalId = vitalService.createVital(personId,

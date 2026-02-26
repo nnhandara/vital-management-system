@@ -1,7 +1,7 @@
 package com.nyasha.vitals_management.aggregate;
 
-import com.nyasha.vitals_management.commands.VitalCreateCommand;
-import com.nyasha.vitals_management.events.VitalCreateEvent;
+import com.nyasha.vitals_management.command.VitalCreateCommand;
+import com.nyasha.vitals_management.event.VitalCreateEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;

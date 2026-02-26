@@ -1,6 +1,8 @@
 package com.nyasha.vitals_management.service;
 
-import com.nyasha.vitals_management.commands.PersonCreateCommand;
+import com.nyasha.vitals_management.command.PersonCreateCommand;
+import com.nyasha.vitals_management.command.PersonDeleteCommand;
+import com.nyasha.vitals_management.command.PersonUpdateCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -29,7 +31,24 @@ public class PersonService {
                        dateOfBirth,
                        address,
                        nationality);
+        log.info("Generated personId: {}", command.getPersonId());
       return commandGateway.send(command).thenApply(result -> command.getPersonId());
     }
+
+    public CompletableFuture updatePerson(String personId, String address) {
+
+        PersonUpdateCommand command =
+               new PersonUpdateCommand(
+                       personId,
+                       address
+               );
+        return commandGateway.send(command).thenApply(result -> command.getPersonId());
+    }
+
+    public CompletableFuture<String> deletePerson(String personId) {
+        return commandGateway.send(new PersonDeleteCommand(personId));
+    }
+
+
 
 }

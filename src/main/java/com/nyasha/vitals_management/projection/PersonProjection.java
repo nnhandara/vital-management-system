@@ -1,13 +1,13 @@
 package com.nyasha.vitals_management.projection;
 
 import com.nyasha.vitals_management.entity.Person;
-import com.nyasha.vitals_management.events.PersonCreateEvent;
+import com.nyasha.vitals_management.event.PersonCreateEvent;
+import com.nyasha.vitals_management.event.PersonDeleteEvent;
+import com.nyasha.vitals_management.event.PersonUpdateEvent;
 import com.nyasha.vitals_management.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -27,5 +27,17 @@ public class PersonProjection {
                 person.setUpdatedAt(personCreateEvent.getUpdatedAt());
                 personRepository.save(person);
 
+    }
+
+    @EventHandler
+    public void onPersonProjection(PersonUpdateEvent personUpdateEvent) {
+        Person person = personRepository.getReferenceByPersonId(personUpdateEvent.getPersonId());
+        person.setAddress(personUpdateEvent.getAddress());
+        personRepository.save(person);
+    }
+
+    @EventHandler
+    public void on(PersonDeleteEvent personDeleteEvent) {
+        personRepository.deleteById(personDeleteEvent.getPersonId());
     }
 }

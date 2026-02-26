@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface PersonRepository extends JpaRepository<Person, String> {
 
     Person getReferenceByPersonId(String personId);
+
 }

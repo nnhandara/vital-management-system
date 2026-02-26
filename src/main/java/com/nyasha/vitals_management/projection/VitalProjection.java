@@ -2,15 +2,12 @@ package com.nyasha.vitals_management.projection;
 
 import com.nyasha.vitals_management.entity.Person;
 import com.nyasha.vitals_management.entity.Vital;
-import com.nyasha.vitals_management.events.VitalCreateEvent;
+import com.nyasha.vitals_management.event.VitalCreateEvent;
 import com.nyasha.vitals_management.repository.PersonRepository;
 import com.nyasha.vitals_management.repository.VitalRepository;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
-
-import java.util.Optional;
-import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor

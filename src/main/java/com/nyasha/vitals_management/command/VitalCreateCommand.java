@@ -1,4 +1,4 @@
-package com.nyasha.vitals_management.commands;
+package com.nyasha.vitals_management.command;
 
 import lombok.*;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;

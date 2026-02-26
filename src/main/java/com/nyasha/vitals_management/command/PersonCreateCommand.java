@@ -1,4 +1,4 @@
-package com.nyasha.vitals_management.commands;
+package com.nyasha.vitals_management.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
