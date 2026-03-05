@@ -6,9 +6,11 @@ import com.nyasha.vitals_management.event.PersonDeleteEvent;
 import com.nyasha.vitals_management.event.PersonUpdateEvent;
 import com.nyasha.vitals_management.repository.PersonRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class PersonProjection {
@@ -38,6 +40,11 @@ public class PersonProjection {
 
     @EventHandler
     public void on(PersonDeleteEvent personDeleteEvent) {
+
+        if (personDeleteEvent.getPersonId() == null) {
+            log.error("PersonDeleteEvent received with null ID — skipping delete");
+            return;
+        }
         personRepository.deleteById(personDeleteEvent.getPersonId());
     }
 }

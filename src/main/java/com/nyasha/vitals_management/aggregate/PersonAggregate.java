@@ -64,4 +64,5 @@ public class PersonAggregate {
     public void on(PersonDeleteEvent event) {
         AggregateLifecycle.markDeleted();
     }
+
 }

@@ -7,5 +7,6 @@ public class PersonDeleteEvent {
     private String personId;
 
     public PersonDeleteEvent(String personId) {
+        this.personId = personId;
     }
 }

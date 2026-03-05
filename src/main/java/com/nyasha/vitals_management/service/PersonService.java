@@ -19,7 +19,7 @@ public class PersonService {
     private final CommandGateway commandGateway;
 
 
-    public CompletableFuture createPerson(String name,
+    public CompletableFuture<String> createPerson(String name,
                                           String gender,
                                           LocalDate dateOfBirth,
                                           String address,
@@ -35,7 +35,7 @@ public class PersonService {
       return commandGateway.send(command).thenApply(result -> command.getPersonId());
     }
 
-    public CompletableFuture updatePerson(String personId, String address) {
+    public CompletableFuture<String> updatePerson(String personId, String address) {
 
         PersonUpdateCommand command =
                new PersonUpdateCommand(
