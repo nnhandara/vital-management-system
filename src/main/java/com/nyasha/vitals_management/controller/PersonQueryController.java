@@ -20,24 +20,31 @@ public class PersonQueryController {
     @Autowired
     private QueryGateway queryGateway;
 
+//    @GetMapping
+//    public List<Person> getAllPerson() {
+//
+//        List<Person> personList = queryGateway.query(new GetAllPersonQuery(),
+//                ResponseTypes.multipleInstancesOf(Person.class)).join();
+//        return personList;
+//    }
+
     @GetMapping
     public List<Person> getAllPerson() {
-
-        GetAllPersonQuery getAllPersonQuery = new GetAllPersonQuery();
-
-        List<Person> personList = queryGateway.query(getAllPersonQuery,
+        return queryGateway.query(new GetAllPersonQuery(),
                 ResponseTypes.multipleInstancesOf(Person.class)).join();
-        return personList;
     }
 
     @GetMapping("/{id}")
-    public Person getAllPerson(@PathVariable String id) {
+    public Person getPersonById(@PathVariable String id) {
 
-        GetPersonByIdQuery getPersonByIdQuery = new GetPersonByIdQuery();
-        getPersonByIdQuery.setPersonId(id);
+        GetPersonByIdQuery query = new GetPersonByIdQuery();
+        query.setPersonId(id);
 
-        Person person = queryGateway.query(getPersonByIdQuery,
-                ResponseTypes.instanceOf(Person.class)).join();
-        return person;
+        return queryGateway.query(
+                query,
+                ResponseTypes.instanceOf(Person.class)
+        ).join();
     }
+
+
 }

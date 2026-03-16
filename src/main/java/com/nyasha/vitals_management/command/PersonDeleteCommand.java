@@ -7,13 +7,14 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class PersonDeleteCommand {
 
     @TargetAggregateIdentifier
     private String personId;
 
-    public PersonDeleteCommand(String personId) {
-        this.personId = personId;
-    }
+
+
+
 
 }

@@ -18,9 +18,10 @@ public class VitalProjection {
 
     @EventHandler
     public void onVitalProjection(VitalCreateEvent vitalCreateEvent){
+//  fetch person
         Person person = personRepository.findById(vitalCreateEvent.getPersonId())
                 .orElseThrow(() -> new IllegalStateException("Person not found: " + vitalCreateEvent.getPersonId()));
-
+//  create vital
         Vital vital = new Vital();
         vital.setPerson(person);
         vital.setVitalId(vitalCreateEvent.getVitalId());
@@ -33,7 +34,13 @@ public class VitalProjection {
         vital.setDate(vitalCreateEvent.getDate());
         vital.setCreatedAt(vitalCreateEvent.getCreatedAt());
 
-        vitalRepository.save(vital);
+        // dd to the person's existing list — modify in-place
+        person.getVitals().add(vital);
+        // maintain bidirectional link
+        vital.setPerson(person);
+
+        // save the parent, cascade will persist the vital
+        personRepository.save(person);
     }
 
     private Person getReferenceById(String personId) {

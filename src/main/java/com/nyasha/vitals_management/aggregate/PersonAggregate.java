@@ -6,6 +6,7 @@ import com.nyasha.vitals_management.command.PersonUpdateCommand;
 import com.nyasha.vitals_management.event.PersonCreateEvent;
 import com.nyasha.vitals_management.event.PersonDeleteEvent;
 import com.nyasha.vitals_management.event.PersonUpdateEvent;
+import jakarta.validation.Valid;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -25,7 +26,7 @@ public class PersonAggregate {
     }
 
     @CommandHandler
-    public PersonAggregate(PersonCreateCommand command) {
+    public PersonAggregate(@Valid PersonCreateCommand command) {
         apply(new PersonCreateEvent(
                 command.getPersonId(),
                 command.getName(),
@@ -39,13 +40,11 @@ public class PersonAggregate {
     public void on(PersonCreateEvent event) {
         this.personId = event.getPersonId();
         this.address = event.getAddress();
-
     }
 
     @CommandHandler
     public void handle(PersonUpdateCommand command) {
         apply(new PersonUpdateEvent(
-                command.getPersonId(),
                 command.getAddress()
         ));
     }

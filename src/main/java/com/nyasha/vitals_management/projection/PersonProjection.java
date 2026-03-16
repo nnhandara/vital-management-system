@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.axonframework.eventhandling.EventHandler;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -26,16 +28,19 @@ public class PersonProjection {
                 person.setAddress(personCreateEvent.getAddress());
                 person.setNationality(personCreateEvent.getNationality());
                 person.setCreatedAt(personCreateEvent.getCreatedAt());
-                person.setUpdatedAt(personCreateEvent.getUpdatedAt());
+                person.setUpdatedAt(LocalDateTime.now());
                 personRepository.save(person);
 
     }
 
     @EventHandler
     public void onPersonProjection(PersonUpdateEvent personUpdateEvent) {
-        Person person = personRepository.getReferenceByPersonId(personUpdateEvent.getPersonId());
-        person.setAddress(personUpdateEvent.getAddress());
-        personRepository.save(person);
+        personRepository.findByPersonId(personUpdateEvent.getPersonId())
+                .ifPresent(person -> {
+                    person.setAddress(personUpdateEvent.getAddress());
+                    person.setUpdatedAt(LocalDateTime.now());
+                    personRepository.save(person);
+                });
     }
 
     @EventHandler

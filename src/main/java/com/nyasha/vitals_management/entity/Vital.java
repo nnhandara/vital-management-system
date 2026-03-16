@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ public class Vital {
     @Column(name = "vital_id")
     private String vitalId;
 
+    @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "person_id", nullable = false, columnDefinition = "VARCHAR(36)")
     private Person person;

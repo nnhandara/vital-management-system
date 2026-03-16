@@ -1,17 +1,17 @@
 package com.nyasha.vitals_management.command;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PersonUpdateCommand {
 
     @TargetAggregateIdentifier
-    private final String personId;
-    private final String address;
+    private String personId;
+    private String address;
 
-    public PersonUpdateCommand(String personId, String address) {
-        this.personId = personId;
-        this.address = address;
-    }
 }

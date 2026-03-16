@@ -3,52 +3,52 @@ package com.nyasha.vitals_management.service;
 import com.nyasha.vitals_management.command.PersonCreateCommand;
 import com.nyasha.vitals_management.command.PersonDeleteCommand;
 import com.nyasha.vitals_management.command.PersonUpdateCommand;
-import lombok.RequiredArgsConstructor;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
-import java.time.LocalDate;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j
 @Service
-@RequiredArgsConstructor
+@Validated
 public class PersonService {
 
     private final CommandGateway commandGateway;
 
-
-    public CompletableFuture<String> createPerson(String name,
-                                          String gender,
-                                          LocalDate dateOfBirth,
-                                          String address,
-                                          String nationality) {
-       PersonCreateCommand command =
-               new PersonCreateCommand(
-                       name,
-                       gender,
-                       dateOfBirth,
-                       address,
-                       nationality);
-        log.info("Generated personId: {}", command.getPersonId());
-      return commandGateway.send(command).thenApply(result -> command.getPersonId());
+    public PersonService(CommandGateway commandGateway) {
+        this.commandGateway = commandGateway;
     }
 
-    public CompletableFuture<String> updatePerson(String personId, String address) {
+    public CompletableFuture<String> createPerson(@Valid PersonCreateCommand personCreateCommand) {
 
-        PersonUpdateCommand command =
-               new PersonUpdateCommand(
-                       personId,
-                       address
-               );
+        String personId = UUID.randomUUID().toString();
+        personCreateCommand.setPersonId(personId);
+
+        log.info("Generated personId: {}", personCreateCommand.getPersonId());
+
+        return commandGateway.send(personCreateCommand)
+                .thenApply(result -> personCreateCommand.getPersonId());
+    }
+
+    public CompletableFuture<String> updatePerson(PersonUpdateCommand personUpdateCommand) {
+        PersonUpdateCommand command = new PersonUpdateCommand(personUpdateCommand.getPersonId(), personUpdateCommand.getAddress());
+        return commandGateway.send(personUpdateCommand).thenApply(result -> personUpdateCommand.getPersonId());
+    }
+
+    public CompletableFuture<String> deletePerson(PersonDeleteCommand personDeleteCommand) {
+        log.info("Deleting person with id: {}", personDeleteCommand.getPersonId());
+        return commandGateway.send(personDeleteCommand).thenApply(result -> personDeleteCommand.getPersonId());
+    }
+
+
+
+
+    public CompletableFuture<String> updatePerson(String id, String address) {
+        PersonUpdateCommand command = new PersonUpdateCommand(id, address);
         return commandGateway.send(command).thenApply(result -> command.getPersonId());
     }
-
-    public CompletableFuture<String> deletePerson(String personId) {
-        return commandGateway.send(new PersonDeleteCommand(personId));
-    }
-
-
-
 }

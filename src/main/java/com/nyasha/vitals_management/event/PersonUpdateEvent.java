@@ -8,7 +8,7 @@ public class PersonUpdateEvent {
     private String personId;
     private String address;
 
-    public PersonUpdateEvent(String personId, String address) {
+    public PersonUpdateEvent(String personId) {
         this.personId = personId;
         this.address = address;
     }

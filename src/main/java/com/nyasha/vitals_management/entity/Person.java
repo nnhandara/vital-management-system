@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity( name = "person")
@@ -28,8 +31,9 @@ public class Person {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
+    @ToString.Exclude
     @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
-    private java.util.List<Vital> vitals;
+    private List<Vital> vitals = new ArrayList<>();
 
     /*
 ## CascadeType.ALL
