@@ -23,6 +23,7 @@ public class PersonCreateCommand {
     private LocalDate dateOfBirth;
     private String address;
     private String nationality;
+    private String religion;
 
 
 }

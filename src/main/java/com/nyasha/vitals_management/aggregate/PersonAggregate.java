@@ -33,7 +33,8 @@ public class PersonAggregate {
                 command.getGender(),
                 command.getDateOfBirth(),
                 command.getAddress(),
-                command.getNationality()
+                command.getNationality(),
+                command.getReligion()
         ));
     }
     @EventSourcingHandler

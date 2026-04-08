@@ -3,13 +3,11 @@ package com.nyasha.vitals_management.controller;
 import com.nyasha.vitals_management.entity.Person;
 import com.nyasha.vitals_management.query.GetAllPersonQuery;
 import com.nyasha.vitals_management.query.GetPersonByIdQuery;
+import com.nyasha.vitals_management.query.SearchPersonsQuery;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -43,6 +41,18 @@ public class PersonQueryController {
         return queryGateway.query(
                 query,
                 ResponseTypes.instanceOf(Person.class)
+        ).join();
+    }
+
+    @GetMapping("/search")
+    public List<Person> searchPersons(@RequestParam String name) {
+
+        SearchPersonsQuery query = new SearchPersonsQuery();
+        query.setName(name);
+
+        return queryGateway.query(
+                query,
+                ResponseTypes.multipleInstancesOf(Person.class)
         ).join();
     }
 

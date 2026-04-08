@@ -16,16 +16,18 @@ public class PersonCreateEvent {
     private LocalDate dateOfBirth;
     private String address;
     private String nationality;
+    private String religion;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
-    public PersonCreateEvent(String personId, String name, String gender, LocalDate dateOfBirth, String address, String nationality) {
+    public PersonCreateEvent(String personId, String name, String gender, LocalDate dateOfBirth, String address, String nationality, String religion) {
         this.personId = personId;
         this.name = name;
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
         this.nationality = nationality;
+        this.religion = religion;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }

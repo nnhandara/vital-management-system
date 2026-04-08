@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.CompletableFuture;
 
-@Slf4j
+@CrossOrigin(origins = "http://localhost:3040")
 @RestController
 @RequestMapping("/person")
 @RequiredArgsConstructor

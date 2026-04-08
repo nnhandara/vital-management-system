@@ -28,6 +28,7 @@ public class Person {
     private String gender;
     private String address;
     private String nationality;
+    private String religion;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

@@ -12,4 +12,5 @@ public class PersonCreateRequest {
     private LocalDate dateOfBirth;
     private String address;
     private String nationality;
+    private String religion;
 }

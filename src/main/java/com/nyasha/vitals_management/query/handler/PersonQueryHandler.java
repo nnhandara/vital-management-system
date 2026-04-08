@@ -3,6 +3,7 @@ package com.nyasha.vitals_management.query.handler;
 import com.nyasha.vitals_management.entity.Person;
 import com.nyasha.vitals_management.query.GetAllPersonQuery;
 import com.nyasha.vitals_management.query.GetPersonByIdQuery;
+import com.nyasha.vitals_management.query.SearchPersonsQuery;
 import com.nyasha.vitals_management.repository.PersonRepository;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class PersonQueryHandler {
     @QueryHandler
     public Person getPerson(GetPersonByIdQuery getPersonById) {
         return personRepository.findById(getPersonById.getPersonId()).orElseThrow(() -> new RuntimeException("Person not found: " ));
+    }
+
+    @QueryHandler
+    public List<Person> handle(SearchPersonsQuery query) {
+        return personRepository.findByNameContainingIgnoreCase(query.getName());
     }
 
 

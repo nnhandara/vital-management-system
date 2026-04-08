@@ -77,6 +77,18 @@
 		<scope>test</scope>
 	</dependency>
 
+	<!--
+Source - https://stackoverflow.com/a/66590699
+Posted by Soroosh Khodami, modified by community. See post 'Timeline' for change history
+Retrieved 2026-03-24, License - CC BY-SA 4.0
+-->
+
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-security</artifactId>
+	</dependency>
+
+
 	<!-- Axon Test Support (Highly Recommended) -->
 	<dependency>
 		<groupId>org.axonframework</groupId>
@@ -84,6 +96,15 @@
 		<version>${axon.version}</version>
 		<scope>test</scope>
 	</dependency>
+
+
+		<dependency>
+			<groupId>org.liquibase</groupId>
+			<artifactId>liquibase-core</artifactId>
+			<!-- Springboot already provides a tested Liquibase version, but you can override it to use your preffered version -->
+<!--			<version>4.31.1</version>-->
+		</dependency>
+
 
 </dependencies>
 
