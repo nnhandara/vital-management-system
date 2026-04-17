@@ -1,0 +1,13 @@
+type Query {
+    getAllPerson: [Person]
+}
+
+type Person {
+    personId: ID
+    name: String
+    address: String
+    dateOfBirth: String
+    gender: String
+    nationality: String
+    religion: String
+}
