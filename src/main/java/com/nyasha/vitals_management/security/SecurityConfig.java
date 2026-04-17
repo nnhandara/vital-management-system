@@ -16,6 +16,8 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/graphql").permitAll()
+                        .requestMatchers("/graphiql/**").permitAll()
                         .requestMatchers("/person/**").permitAll()
                         .anyRequest().authenticated()
                 );
