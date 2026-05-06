@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.concurrent.CompletableFuture;
 
+@CrossOrigin(origins = "http://localhost:3040")
 @RestController
 @RequestMapping("{personId}/vital")
 @RequiredArgsConstructor
@@ -17,10 +18,10 @@ public class VitalController {
     @PostMapping(value = "create")
     public ResponseEntity<String> createVital(@PathVariable String personId,
                                               @RequestBody VitalCreateRequest dto){
-        CompletableFuture vitalId = vitalService.createVital(personId,
+        String vitalId = String.valueOf(vitalService.createVital(personId,
                 dto.getBloodPressure(), dto.getTemperature(), dto.getOxygenSaturation(),
-                dto.getRespiratoryRate(), dto.getPulse(), dto.getHeartRate(), dto.getDate());
-        return ResponseEntity.ok((String) vitalId.join());
+                dto.getRespiratoryRate(), dto.getPulse(), dto.getHeartRate(), dto.getDate()));
+        return ResponseEntity.ok(vitalId);
 
     }
 }

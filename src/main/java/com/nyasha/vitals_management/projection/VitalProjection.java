@@ -34,7 +34,7 @@ public class VitalProjection {
         vital.setDate(vitalCreateEvent.getDate());
         vital.setCreatedAt(vitalCreateEvent.getCreatedAt());
 
-        // dd to the person's existing list — modify in-place
+        // add to the person's existing list — modify in-place
         person.getVitals().add(vital);
         // maintain bidirectional link
         vital.setPerson(person);

@@ -16,17 +16,17 @@ public class VitalService {
 
     private final CommandGateway commandGateway;
 
-    public CompletableFuture createVital(String personId,
-                                               String bloodPressure,
-                                               Integer temperature,
-                                               Integer oxygenSaturation,
-                                               Integer respiratoryRate,
-                                               Integer pulse,
-                                               Integer heartRate,
-                                               LocalDate date){
+    public String createVital(String personId,
+                                                 String bloodPressure,
+                                                 Integer temperature,
+                                                 Integer oxygenSaturation,
+                                                 Integer respiratoryRate,
+                                                 Integer pulse,
+                                                 Integer heartRate,
+                                                 LocalDate date){
         VitalCreateCommand command = new VitalCreateCommand(
                 personId, bloodPressure, temperature, oxygenSaturation, respiratoryRate, pulse, heartRate, date);
-        return commandGateway.send(command).thenApply(result  -> command.getVitalId());
+        return commandGateway.sendAndWait(command);
 
     }
 }

@@ -19,6 +19,7 @@ public class SecurityConfig {
                         .requestMatchers("/graphql").permitAll()
                         .requestMatchers("/graphiql/**").permitAll()
                         .requestMatchers("/person/**").permitAll()
+                        .requestMatchers("/*/vital/**").permitAll()
                         .anyRequest().authenticated()
                 );
 
