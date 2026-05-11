@@ -3,9 +3,11 @@ package com.nyasha.vitals_management.service;
 import com.nyasha.vitals_management.command.PersonCreateCommand;
 import com.nyasha.vitals_management.command.PersonDeleteCommand;
 import com.nyasha.vitals_management.command.PersonUpdateCommand;
-import jakarta.validation.Valid;
+import com.nyasha.vitals_management.dto.PersonCreateRequest;
+import com.nyasha.vitals_management.dto.PersonUpdateRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.checkerframework.checker.nullness.qual.MonotonicNonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -23,32 +25,44 @@ public class PersonService {
         this.commandGateway = commandGateway;
     }
 
-    public CompletableFuture<String> createPerson(@Valid PersonCreateCommand personCreateCommand) {
+    public String createPerson(PersonCreateRequest request) {
+        PersonCreateCommand command = new PersonCreateCommand();
 
         String personId = UUID.randomUUID().toString();
-        personCreateCommand.setPersonId(personId);
 
-        log.info("Generated personId: {}", personCreateCommand.getPersonId());
+        command.setPersonId(personId);
+        command.setName(request.getName());
+        command.setDateOfBirth(request.getDateOfBirth());
+        command.setGender(request.getGender());
+        command.setAddress(request.getAddress());
+        command.setReligion(request.getReligion());
+        command.setNationality(request.getNationality());
 
-        return commandGateway.send(personCreateCommand)
-                .thenApply(result -> personCreateCommand.getPersonId());
+        log.info("Generated personId: {}", personId);
+
+        commandGateway.sendAndWait(command);
+        return personId;
     }
 
-    public CompletableFuture<String> updatePerson(PersonUpdateCommand personUpdateCommand) {
-        PersonUpdateCommand command = new PersonUpdateCommand(personUpdateCommand.getPersonId(), personUpdateCommand.getAddress());
-        return commandGateway.send(personUpdateCommand).thenApply(result -> personUpdateCommand.getPersonId());
+    public String updatePerson(
+            String personId,
+            PersonUpdateRequest request) {
+
+        PersonUpdateCommand command = new PersonUpdateCommand();
+
+        command.setPersonId(personId);
+        command.setAddress(request.getAddress());
+
+        commandGateway.sendAndWait(command);
+
+        return personId;
     }
 
-    public CompletableFuture<String> deletePerson(PersonDeleteCommand personDeleteCommand) {
-        log.info("Deleting person with id: {}", personDeleteCommand.getPersonId());
-        return commandGateway.send(personDeleteCommand).thenApply(result -> personDeleteCommand.getPersonId());
-    }
+    public void deletePerson(String personId) {
 
+        PersonDeleteCommand command =
+                new PersonDeleteCommand(personId);
 
-
-
-    public CompletableFuture<String> updatePerson(String id, String address) {
-        PersonUpdateCommand command = new PersonUpdateCommand(id, address);
-        return commandGateway.send(command).thenApply(result -> command.getPersonId());
+        commandGateway.sendAndWait(command);
     }
 }

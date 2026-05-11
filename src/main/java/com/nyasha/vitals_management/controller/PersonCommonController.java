@@ -2,7 +2,10 @@ package com.nyasha.vitals_management.controller;
 
 import com.nyasha.vitals_management.command.PersonCreateCommand;
 import com.nyasha.vitals_management.command.PersonDeleteCommand;
+import com.nyasha.vitals_management.dto.PersonCreateRequest;
+import com.nyasha.vitals_management.dto.PersonDeleteRequest;
 import com.nyasha.vitals_management.dto.PersonUpdateRequest;
+import com.nyasha.vitals_management.dto.VitalCreateRequest;
 import com.nyasha.vitals_management.service.PersonService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,22 +23,32 @@ public class PersonCommonController {
 
     private final PersonService personService;
 
-    @PostMapping(value = "create")
-    public CompletableFuture<String> createPerson(@RequestBody @Valid PersonCreateCommand personCreateCommand) {
-        return personService.createPerson(personCreateCommand);
+    @PostMapping("/create")
+    public ResponseEntity<String> createPerson(@RequestBody PersonCreateRequest personCreateRequest) {
+
+        String personId = personService.createPerson(personCreateRequest);
+
+        return ResponseEntity.ok(personId);
     }
 
-    @PutMapping(value = "update/{id}")
-    public ResponseEntity<String> updatePerson(@PathVariable String id,
-                                               @RequestBody PersonUpdateRequest dto) {
-        CompletableFuture<String> personId = personService.updatePerson(id, dto.getAddress());
-        return ResponseEntity.ok(personId.join());
-    }
-    @DeleteMapping(value = "delete/{id}")
-    public CompletableFuture<String> deletePerson(@PathVariable String id) {
-        PersonDeleteCommand command = new PersonDeleteCommand(id);
-        return personService.deletePerson(command);
+    @PutMapping("/update/{personId}")
+    public ResponseEntity<String> updatePerson(
+            @PathVariable String personId,
+            @RequestBody PersonUpdateRequest personUpdateRequest) {
+
+        String updatedPersonId =
+                personService.updatePerson(personId, personUpdateRequest);
+
+        return ResponseEntity.ok(updatedPersonId);
     }
 
+    @DeleteMapping("/delete/{personId}")
+    public ResponseEntity<String> deletePerson(
+            @PathVariable String personId) {
+
+        personService.deletePerson(personId);
+
+        return ResponseEntity.ok("Person deleted successfully");
+    }
 
 }

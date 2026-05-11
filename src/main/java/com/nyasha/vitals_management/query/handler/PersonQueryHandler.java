@@ -24,7 +24,7 @@ public class PersonQueryHandler {
 
     @QueryHandler
     public Person getPerson(GetPersonByIdQuery getPersonById) {
-        return personRepository.findById(getPersonById.getPersonId()).orElseThrow(() -> new RuntimeException("Person not found: " ));
+        return personRepository.findByPersonId(getPersonById.getPersonId()).orElseThrow(() -> new RuntimeException("Person not found: " ));
     }
 
     @QueryHandler

@@ -2,6 +2,7 @@ package com.nyasha.vitals_management.controller;
 
 import com.nyasha.vitals_management.entity.Person;
 import com.nyasha.vitals_management.query.GetAllPersonQuery;
+import com.nyasha.vitals_management.query.GetPersonByIdQuery;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -24,5 +25,13 @@ public class PersonGraphQLController {
                 new GetAllPersonQuery(),
                 ResponseTypes.multipleInstancesOf(Person.class)
         ).join();
+    }
+
+    @QueryMapping
+    public void getPersonById(){
+        queryGateway.query(
+                new GetPersonByIdQuery(),
+                ResponseTypes.instanceOf(Person.class)
+        );
     }
 }
