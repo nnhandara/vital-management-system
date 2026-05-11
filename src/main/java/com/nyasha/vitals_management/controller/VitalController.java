@@ -1,5 +1,6 @@
 package com.nyasha.vitals_management.controller;
 
+import com.nyasha.vitals_management.dto.PersonCreateRequest;
 import com.nyasha.vitals_management.dto.VitalCreateRequest;
 import com.nyasha.vitals_management.service.VitalService;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +16,13 @@ public class VitalController {
 
     private final VitalService vitalService;
 
-    @PostMapping(value = "create")
-    public ResponseEntity<String> createVital(@PathVariable String personId,
-                                              @RequestBody VitalCreateRequest dto){
-        String vitalId = String.valueOf(vitalService.createVital(personId,
-                dto.getBloodPressure(), dto.getTemperature(), dto.getOxygenSaturation(),
-                dto.getRespiratoryRate(), dto.getPulse(), dto.getHeartRate(), dto.getDate()));
-        return ResponseEntity.ok(vitalId);
+    @PostMapping("/create")
+    public ResponseEntity<String> createVital(
+            @PathVariable String personId,
+            @RequestBody VitalCreateRequest request) {
 
+        String vitalId = vitalService.createVital(personId, request);
+
+        return ResponseEntity.ok(vitalId);
     }
 }
