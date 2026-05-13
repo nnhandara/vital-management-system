@@ -7,4 +7,6 @@ public class GetPersonByIdQuery {
 
     private String personId;
 
+    public GetPersonByIdQuery(String personId) {
+    }
 }

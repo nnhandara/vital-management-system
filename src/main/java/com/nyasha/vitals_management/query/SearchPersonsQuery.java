@@ -5,8 +5,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class SearchPersonsQuery {
     private String name;
+
+    public SearchPersonsQuery(String name) {
+        this.name = name;
+    }
+
 }
