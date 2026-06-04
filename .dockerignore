@@ -1,0 +1,42 @@
+# Git
+.git
+.gitignore
+
+# IntelliJ
+.idea
+*.iml
+
+# VS Code
+.vscode
+
+# Maven
+.mvn
+
+# Build outputs
+target/*.original
+
+# Logs
+*.log
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
+README.md
+
+# Environment files
+.env
+.env.*
+
+# Temporary files
+tmp/
+temp/
+
+# Docker files not needed in image
+docker-compose.yml
+
+# Node (if frontend exists in same repo)
+node_modules/
+npm-debug.log
