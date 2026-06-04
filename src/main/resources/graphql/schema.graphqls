@@ -1,5 +1,7 @@
 type Query {
     getAllPerson: [Person]
+    getPersonById(personId: String!): Person
+    searchPersonQuery(name: String!): [Person]
 }
 
 type Person {
@@ -11,3 +13,5 @@ type Person {
     nationality: String
     religion: String
 }
+
+
