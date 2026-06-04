@@ -17,33 +17,27 @@ public class VitalProjection {
     private final PersonRepository personRepository;
 
     @EventHandler
-    public void onVitalProjection(VitalCreateEvent vitalCreateEvent){
-//  fetch person
-        Person person = personRepository.findById(vitalCreateEvent.getPersonId())
-                .orElseThrow(() -> new IllegalStateException("Person not found: " + vitalCreateEvent.getPersonId()));
-//  create vital
+    public void onVitalProjection(VitalCreateEvent event) {
+
+        Person person = personRepository.findById(event.getPersonId())
+                .orElseThrow(() -> new IllegalStateException(
+                        "Person not found: " + event.getPersonId()
+                ));
+
         Vital vital = new Vital();
-        vital.setPerson(person);
-        vital.setVitalId(vitalCreateEvent.getVitalId());
-        vital.setBloodPressure(vitalCreateEvent.getBloodPressure());
-        vital.setTemperature(vitalCreateEvent.getTemperature());
-        vital.setOxygenSaturation(vitalCreateEvent.getOxygenSaturation());
-        vital.setRespiratoryRate(vitalCreateEvent.getRespiratoryRate());
-        vital.setPulse(vitalCreateEvent.getPulse());
-        vital.setHeartRate(vitalCreateEvent.getHeartRate());
-        vital.setDate(vitalCreateEvent.getDate());
-        vital.setCreatedAt(vitalCreateEvent.getCreatedAt());
 
-        // add to the person's existing list — modify in-place
-        person.getVitals().add(vital);
-        // maintain bidirectional link
+        vital.setVitalId(event.getVitalId());
         vital.setPerson(person);
+        vital.setBloodPressure(event.getBloodPressure());
+        vital.setTemperature(event.getTemperature());
+        vital.setOxygenSaturation(event.getOxygenSaturation());
+        vital.setRespiratoryRate(event.getRespiratoryRate());
+        vital.setPulse(event.getPulse());
+        vital.setHeartRate(event.getHeartRate());
+        vital.setDate(event.getDate());
+        vital.setCreatedAt(event.getCreatedAt());
 
-        // save the parent, cascade will persist the vital
-        personRepository.save(person);
+        vitalRepository.save(vital);
     }
 
-    private Person getReferenceById(String personId) {
-        return personRepository.getReferenceByPersonId(personId);
-    }
 }

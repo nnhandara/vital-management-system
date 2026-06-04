@@ -1,34 +1,46 @@
-#services:
-#  axonserver:
-#    image: axoniq/axonserver:latest
-#    container_name: axonserver
-#    hostname: axonserver
-#    ports:
-#      - "8024:8024" # Dashboard & REST
-#      - "8124:8124" # gRPC (Messaging)
-#    environment:
-#      - AXONIQ_AXONSERVER_HOSTNAME=localhost
-#    volumes:
-#      - ./axonserver/data:/data
-#      - ./axonserver/events:/eventdata
-#      - ./axonserver/config:/config
-#    networks:
-#      - vitals-network
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: vitals-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: vitals_db
+      MYSQL_USER: vitals_user
+      MYSQL_PASSWORD: vitals_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - vitals-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
-#  # Adding your MySQL for a complete environment
-#  mysql-db:
-#    image: mysql:8.0
-#    container_name: vitals-mysql
-#    ports:
-#      - "3307:3306"
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=nyasha
-#      - MYSQL_DATABASE=vitals_management
-#      - MYSQL_USER=nyasha
-#      - MYSQL_PASSWORD=nyasha
-#    networks:
-#      - vitals-network
-#
-#  networks:
-#    vitals-network:
-#      driver: bridge
+  backend:
+    image: vitals-management:latest
+    container_name: vitals-backend
+    restart: always
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/vitals_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: vitals_user
+      SPRING_DATASOURCE_PASSWORD: vitals_password
+      SPRING_LIQUIBASE_ENABLED: "true"
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+    networks:
+      - vitals-network
+
+volumes:
+  mysql_data:
+
+networks:
+  vitals-network:
+    driver: bridge

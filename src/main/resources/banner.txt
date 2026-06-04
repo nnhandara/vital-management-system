@@ -1,0 +1,15 @@
+${AnsiColor.BRIGHT_YELLOW}
+██╗   ██╗███╗   ███╗███████╗
+██║   ██║████╗ ████║██╔════╝
+██║   ██║██╔████╔██║███████╗
+╚██╗ ██╔╝██║╚██╔╝██║╚════██║
+ ╚████╔╝ ██║ ╚═╝ ██║███████║
+  ╚═══╝  ╚═╝     ╚═╝╚══════╝
+
+${AnsiColor.WHITE}
+      V I T A L S   M A N A G E M E N T    S Y S T E M
+
+${AnsiColor.YELLOW}
+      Secure • Reliable • Scalable
+
+${AnsiColor.DEFAULT}
