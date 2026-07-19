@@ -2,6 +2,7 @@ type Query {
     getAllPerson: [Person]
     getPersonById(personId: String!): Person
     searchPersonQuery(name: String!): [Person]
+    vitalsByPersonId(personId: ID!): [Vital]
 }
 
 type Person {
@@ -14,4 +15,15 @@ type Person {
     religion: String
 }
 
-
+type Vital {
+    vitalId: ID
+    temperature: Float
+    bloodPressure: String
+    pulseRate: Int
+    respiratoryRate: Int
+    oxygenSaturation: Int
+    weight: Float
+    height: Float
+    notes: String
+    recordedAt: String
+}

@@ -13,6 +13,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 @CrossOrigin(origins = "http://localhost:3040")
@@ -22,13 +24,16 @@ import java.util.concurrent.CompletableFuture;
 public class PersonCommonController {
 
     private final PersonService personService;
-
     @PostMapping("/create")
-    public ResponseEntity<String> createPerson(@RequestBody PersonCreateRequest personCreateRequest) {
+    public ResponseEntity<Map<String, String>> createPerson(
+            @RequestBody PersonCreateRequest personCreateRequest) {
 
         String personId = personService.createPerson(personCreateRequest);
 
-        return ResponseEntity.ok(personId);
+        Map<String, String> response = new HashMap<>();
+        response.put("personId", personId);
+
+        return ResponseEntity.ok(response);
     }
 
     @PutMapping("/update/{personId}")
